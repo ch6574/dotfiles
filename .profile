@@ -15,6 +15,7 @@ fi
 
 # environment variables availble after login
 export EDITOR='vim'
+export GPGKEY='165FDE7C'               # My current GPG key
 
 export WFICA_OPTS='-span a'            # GS Citrix session to span all screens
 

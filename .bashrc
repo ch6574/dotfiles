@@ -90,9 +90,6 @@ if [[ "${color_prompt}" = yes ]]; then
     no_standout=$(tput rmso)
     reset_video=$(tput sgr0)
 
-    # Colour grep if supported
-    ( echo chk | grep --color=auto chk &> /dev/null ) && export GREP_OPTIONS='--color=auto'
-
     # Prompt
     PS1="\[$green\]╭─► \[$yellow\] \w\n\[${green}\]╰\[${standout}\]\D{%R %Z}\[${no_standout}\] ${debian_chroot:+($debian_chroot)}\u@\h \[${standout}\]\${?##0}\[${no_standout}\] $ \[${reset_video}\]"
 else
