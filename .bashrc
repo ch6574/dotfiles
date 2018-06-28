@@ -59,6 +59,8 @@ if [[ -z "${debian_chroot:-}" ]] && [[ -r /etc/debian_chroot ]]; then
     debian_chroot="$(cat /etc/debian_chroot)"
 fi
 
+# Core dumps
+ulimit -c unlimited
 
 #-------------------------------------------------------------------------------
 # Colours!
@@ -134,13 +136,20 @@ if [[ -r ~/.bash_aliases ]]; then
 fi
 
 clock() {
-    local places=('Salt Lake City' 'New York'   'UTC' 'London'        'Bangalore'     'Hong Kong'      'Tokyo'      'Melbourne')
-    local zones=( 'US/Mountain'    'US/Eastern' 'UTC' 'Europe/London' 'Asia/Calcutta' 'Asia/Hong_Kong' 'Asia/Tokyo' 'Australia/Melbourne')
+    local places=('New York'         'UTC' 'London'        'Bangalore'     'Hong Kong'      'Tokyo'      'Melbourne')
+    local zones=( 'America/New_York' 'UTC' 'Europe/London' 'Asia/Calcutta' 'Asia/Hong_Kong' 'Asia/Tokyo' 'Australia/Melbourne')
     local count=0
     zdump ${zones[*]} | while read times; do
-        printf "%14s | %s\n" "${places[${count}]}" "${times}"
+        printf "%10s | %s\n" "${places[${count}]}" "${times}"
         ((count++))
     done
+}
+
+refresh-env() {
+    if [ -n "$TMUX" ]; then
+        echo "Reloading environment from TMUX"
+        eval $(tmux showenv -s)
+    fi
 }
 
 # enable programmable completion features (you don't need to enable

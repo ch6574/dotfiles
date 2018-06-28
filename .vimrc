@@ -1,4 +1,4 @@
-" CGH 2015-02-21
+" CGH 2018-06-27
 "
 
 " Plugins
@@ -6,8 +6,8 @@ filetype off                  " Req'd for vundle
 set rtp+=~/.vim/bundle/vundle " Vundle prelude
 call vundle#rc()              " ^
 
+Bundle 'vim-colors-solarized'
 Bundle 'gmarik/vundle'
-
 Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdtree'
@@ -42,7 +42,8 @@ nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 nnoremap <silent> <F7> mzgg=G`z<CR>
 
 " Colours
-colorscheme  peaksea
+"colorscheme  peaksea
+colorscheme solarized
 set background=dark
 
 " vim-airline
