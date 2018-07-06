@@ -78,7 +78,6 @@ if [[ -n "${force_color_prompt}" ]]; then
         # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
         # a case would tend to support setf rather than setaf.)
         color_prompt='yes'
-        TERM='xterm-256color'
     else
         color_prompt=
     fi
@@ -93,11 +92,11 @@ if [[ "${color_prompt}" = yes ]]; then
     reset_video=$(tput sgr0)
 
     # Prompt
-    PS1="\[$green\]╭─► \[$yellow\] \w\n\[${green}\]╰\[${standout}\]\D{%R %Z}\[${no_standout}\] ${debian_chroot:+($debian_chroot)}\u@\h \[${standout}\]\${?##0}\[${no_standout}\] $ \[${reset_video}\]"
+    PS1="\[$green\]╭─► \[$yellow\] \w \$(__git_ps1 '(%s)')\n\[${green}\]╰\[${standout}\]\D{%R %Z}\[${no_standout}\] ${debian_chroot:+($debian_chroot)}\u@\h \[${standout}\]\${?##0}\[${no_standout}\] $ \[${reset_video}\]"
 else
     # Monochrome prompt
     case "${TERM}" in
-        xterm*|rxvt*) PS1="╭─►  \w\n╰\D{%R %Z} ${debian_chroot:+($debian_chroot)}\u@\h \${##0} $ " ;;
+        xterm*|rxvt*) PS1="╭─►  \w \$(__git_ps1 '(%s)')\n╰\D{%R %Z} ${debian_chroot:+($debian_chroot)}\u@\h \${##0} $ " ;;
                    *) PS1="${debian_chroot:+($debian_chroot)}\u@\h \w $ " ;;
    esac
 fi
@@ -111,7 +110,7 @@ esac
 
 # Man pages in color
 case "${TERM}" in
-    xterm-*color)
+    *color)
         # Man pages in colour
         export LESS_TERMCAP_mb=$(tput bold; tput setaf 1)                   # red
         export LESS_TERMCAP_md=$(tput bold; tput setaf 1)                   # red
@@ -146,10 +145,14 @@ clock() {
 }
 
 refresh-env() {
-    if [ -n "$TMUX" ]; then
+    if [ -n "${TMUX}" ]; then
         echo "Reloading environment from TMUX"
         eval $(tmux showenv -s)
     fi
+}
+
+macgrep() {
+    grep -i ${1} ~/Documents/Computer/"MAC Addresses.txt"
 }
 
 # enable programmable completion features (you don't need to enable
