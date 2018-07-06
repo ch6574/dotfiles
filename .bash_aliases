@@ -2,15 +2,10 @@ alias binds='bind -P | grep "can be found on"'
 alias psu='ps -fu ${USER}'
 
 # some more ls aliases
-alias l='ls --color=auto -CF'    # List by columns, append indicator
-alias ll='ls --color=auto -lF'   # long format, append indicator
-alias la='ls --color=auto -A'    # all but '.' and '..'
-alias lla='ls --color=auto -AlF' # all, long format, append indicator
-
-# Always enable colored `grep` output`
-alias grep="grep --color=auto"
-alias fgrep="fgrep --color=auto"
-alias egrep="egrep --color=auto"
+alias l='ls -CF'    # List by columns, append indicator
+alias ll='ls -lF'   # long format, append indicator
+alias la='ls -A'    # all but '.' and '..'
+alias lla='ls -AlF' # all, long format, append indicator
 
 alias path='echo -e ${PATH//:/\\n}'
 
