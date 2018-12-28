@@ -8,6 +8,26 @@ case "${-}" in
 esac
 
 #-------------------------------------------------------------------------------
+# Tmux
+#-------------------------------------------------------------------------------
+
+# If tmux session exists, prompt to re-attach
+if [[ -z "$TMUX" ]] && which tmux >/dev/null 2>&1; then
+    TM_SESS=$(tmux list-sessions 2>/dev/null)
+    if [[ ! -z "$TM_SESS" ]]; then
+        printf "Tmux active:\n%s\n" "$TM_SESS"
+        TM_ID="$(grep -vm1 "attached" <<< "$TM_SESS" | cut -d: -f1)" # Get the id of a deattached session
+        if [[ ! -z "$TM_ID" ]]; then
+            read -n1 -p "Attach to tmux session $TM_ID? " YN
+            case "$YN" in
+                [Yy]*) exec tmux attach-session -t $TM_ID ;;
+                    *) printf "\n" ;;
+            esac
+        fi
+    fi
+fi
+
+#-------------------------------------------------------------------------------
 # Shell usability settings
 #-------------------------------------------------------------------------------
 
