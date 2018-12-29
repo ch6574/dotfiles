@@ -8,24 +8,39 @@ case "${-}" in
 esac
 
 #-------------------------------------------------------------------------------
-# Tmux
+# Tmux, do this at the start as we 'exec'
 #-------------------------------------------------------------------------------
 
-# If tmux session exists, prompt to re-attach
-if [[ -z "$TMUX" ]] && which tmux >/dev/null 2>&1; then
-    TM_SESS=$(tmux list-sessions 2>/dev/null)
-    if [[ ! -z "$TM_SESS" ]]; then
-        printf "Tmux active:\n%s\n" "$TM_SESS"
-        TM_ID="$(grep -vm1 "attached" <<< "$TM_SESS" | cut -d: -f1)" # Get the id of a deattached session
-        if [[ ! -z "$TM_ID" ]]; then
-            read -n1 -p "Attach to tmux session $TM_ID? " YN
-            case "$YN" in
-                [Yy]*) exec tmux attach-session -t $TM_ID ;;
-                    *) printf "\n" ;;
+tmux_check ()
+{
+    if [[ -z "$TMUX" ]] && which tmux >/dev/null 2>&1; then
+        # tmux exists, and we're not inside of it...
+        local sessions=$(tmux list-sessions 2>/dev/null)
+        if [[ ! -z "$sessions" ]]; then
+            printf "Tmux active:\n%s\n" "$sessions"
+        fi
+        # Use a default session named after the hostname
+        local session=${HOSTNAME%%.*}
+        if tmux has-session -t "$session" 2>/dev/null; then
+            # Session already running, prompt to re-attach if no client
+            if [[ $(tmux list-clients -t "$session" | wc -l) -eq 0 ]]; then
+                read -n1 -p "Attach tmux session '$session'? " yn
+                printf "\n"
+                case "$yn" in
+                    [Yy]*) exec tmux attach-session -t "$session" ;;
+                esac
+            fi
+        else
+            # Prompt to start the default session
+            read -n1 -p "Start tmux session '$session'? " yn
+            printf "\n"
+            case "$yn" in
+                [Yy]*) exec tmux new-session -s "$session" ;;
             esac
         fi
     fi
-fi
+}
+tmux_check
 
 #-------------------------------------------------------------------------------
 # Shell usability settings
@@ -83,9 +98,8 @@ fi
 ulimit -c unlimited
 
 #-------------------------------------------------------------------------------
-# Colours!
+# Colors!
 #-------------------------------------------------------------------------------
-
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
@@ -155,11 +169,7 @@ esac
 # Aliases and functions
 #-------------------------------------------------------------------------------
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
+# Alias definitions
 if [[ -r ~/.bash_aliases ]]; then
     . ~/.bash_aliases
 fi
