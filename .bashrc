@@ -13,27 +13,29 @@ esac
 
 tmux_check ()
 {
-    if [[ -z "$TMUX" ]] && which tmux >/dev/null 2>&1; then
+    local session
+    local sessions
+    if [[ -z "$TMUX" ]] && command -v tmux >/dev/null 2>&1; then
         # tmux exists, and we're not inside of it...
-        local sessions=$(tmux list-sessions 2>/dev/null)
+        sessions=$(tmux list-sessions 2>/dev/null)
         if [[ ! -z "$sessions" ]]; then
-            printf "Tmux active:\n%s\n" "$sessions"
+            printf "Tmux active:\\n%s\\n" "$sessions"
         fi
         # Use a default session named after the hostname
-        local session=${HOSTNAME%%.*}
+        session=${HOSTNAME%%.*}
         if tmux has-session -t "$session" 2>/dev/null; then
             # Session already running, prompt to re-attach if no client
             if [[ $(tmux list-clients -t "$session" | wc -l) -eq 0 ]]; then
-                read -n1 -p "Attach tmux session '$session'? " yn
-                printf "\n"
+                read -n1 -rp "Attach tmux session '$session'? " yn
+                printf "\\n"
                 case "$yn" in
                     [Yy]*) exec tmux attach-session -t "$session" ;;
                 esac
             fi
         else
             # Prompt to start the default session
-            read -n1 -p "Start tmux session '$session'? " yn
-            printf "\n"
+            read -n1 -rp "Start tmux session '$session'? " yn
+            printf "\\n"
             case "$yn" in
                 [Yy]*) exec tmux new-session -s "$session" ;;
             esac
@@ -126,12 +128,12 @@ if [[ "${color_prompt}" = yes ]]; then
     reset_video=$(tput sgr0)
 
     # Prompt
-    PS1="\[$green\]╭─► \[$yellow\] \w \$(__git_ps1 '(%s)')\n\[${green}\]╰\[${standout}\]\D{%R %Z}\[${no_standout}\] ${debian_chroot:+($debian_chroot)}\u@\h \[${standout}\]\${?##0}\[${no_standout}\] $ \[${reset_video}\]"
+    PS1="\\[$green\\]╭─► \\[$yellow\\] \\w \$(__git_ps1 '(%s)')\\n\\[${green}\\]╰\\[${standout}\\]\\D{%R %Z}\\[${no_standout}\\] ${debian_chroot:+($debian_chroot)}\\u@\\h \\[${standout}\\]\${?##0}\\[${no_standout}\\] $ \\[${reset_video}\\]"
 else
     # Monochrome prompt
     case "${TERM}" in
-        xterm*|rxvt*) PS1="╭─►  \w \$(__git_ps1 '(%s)')\n╰\D{%R %Z} ${debian_chroot:+($debian_chroot)}\u@\h \${##0} $ " ;;
-                   *) PS1="${debian_chroot:+($debian_chroot)}\u@\h \w $ " ;;
+        xterm*|rxvt*) PS1="╭─►  \\w \$(__git_ps1 '(%s)')\\n╰\\D{%R %Z} ${debian_chroot:+($debian_chroot)}\\u@\\h \${##0} $ " ;;
+                   *) PS1="${debian_chroot:+($debian_chroot)}\\u@\\h \\w $ " ;;
    esac
 fi
 unset color_prompt force_color_prompt green yellow standout no_standout reset_video
@@ -139,12 +141,16 @@ unset color_prompt force_color_prompt green yellow standout no_standout reset_vi
 # If this is an xterm set the title to user@host:dir
 # perhaps use tput tsl / tput fsl?
 case "${TERM}" in
-    xterm*|rxvt*) PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]${PS1}" ;;
+    xterm*|rxvt*) PS1="\\[\\e]0;${debian_chroot:+($debian_chroot)}\\u@\\h: \\w\\a\\]${PS1}" ;;
 esac
 
 # ls in color
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    if test -r ~/.dircolors; then
+        eval "$(dircolors -b ~/.dircolors)"
+    else
+        eval "$(dircolors -b)"
+    fi
     alias ls='ls --color=auto'
 
     alias grep='grep --color=auto'
@@ -178,8 +184,8 @@ clock() {
     local places=('New York'         'UTC' 'London'        'Bangalore'     'Hong Kong'      'Tokyo'      'Melbourne')
     local zones=( 'America/New_York' 'UTC' 'Europe/London' 'Asia/Calcutta' 'Asia/Hong_Kong' 'Asia/Tokyo' 'Australia/Melbourne')
     local count=0
-    zdump ${zones[*]} | while read times; do
-        printf "%10s | %s\n" "${places[${count}]}" "${times}"
+    zdump "${zones[@]}" | while read -r times; do
+        printf "%10s | %s\\n" "${places[${count}]}" "${times}"
         ((count++))
     done
 }
@@ -187,12 +193,12 @@ clock() {
 refresh-env() {
     if [ -n "${TMUX}" ]; then
         echo "Reloading environment from TMUX"
-        eval $(tmux showenv -s)
+        eval "$(tmux showenv -s)"
     fi
 }
 
 macgrep() {
-    grep -i ${1} ~/Documents/Computer/"MAC Addresses.txt"
+    grep -i "${1}" ~/Documents/Computer/"MAC Addresses.txt"
 }
 
 # enable programmable completion features (you don't need to enable
