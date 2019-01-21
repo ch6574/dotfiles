@@ -1,24 +1,27 @@
-" CGH 2018-06-27
+" CGH 2018-12-16
 "
 
 " Plugins
-filetype off                  " Req'd for vundle
-set rtp+=~/.vim/bundle/vundle " Vundle prelude
-call vundle#rc()              " ^
+set nocompatible
+filetype off                      " Req'd for vundle
+set rtp+=~/.vim/bundle/Vundle.vim " Vundle prelude
+call vundle#begin()               " ^
+Plugin 'VundleVim/Vundle.vim'     " ^
 
-Bundle 'vim-colors-solarized'
-Bundle 'gmarik/vundle'
-Bundle 'bling/vim-airline'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-"Bundle 'valloric/YouCompleteMe'
-Bundle 'vim-scripts/peaksea'
-Bundle 'xolox/vim-easytags'
-Bundle 'xolox/vim-misc'
+Plugin 'vim-colors-solarized'
+Plugin 'gmarik/vundle'
+Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+"Plugin 'valloric/YouCompleteMe'
+Plugin 'vim-scripts/peaksea'
+Plugin 'xolox/vim-easytags'
+Plugin 'xolox/vim-misc'
 
 " Post-vundle
-filetype plugin indent on     " Req'd for vundle
+call vundle#end()                 " Req'd for vundle
+filetype plugin indent on         " ^
 
 " Basic settings
 set autoindent                  " Align the next line automatically
@@ -42,9 +45,9 @@ nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 nnoremap <silent> <F7> mzgg=G`z<CR>
 
 " Colours
+set background=dark
 "colorscheme  peaksea
 colorscheme solarized
-set background=dark
 
 " vim-airline
 set laststatus=2
