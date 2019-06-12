@@ -210,6 +210,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# fzf
+if [[ -r /usr/share/bash-completion/completions/fzf ]]; then
+    . /usr/share/bash-completion/completions/fzf
+fi
+if [[ -r /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
+    . /usr/share/doc/fzf/examples/key-bindings.bash
+fi
 
 #-------------------------------------------------------------------------------
 # PATH's, environment variables etc
