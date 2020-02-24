@@ -51,6 +51,12 @@ set noshowmode
 set ttimeoutlen=50
 let g:airline_powerline_fonts = 1 " need terminal to use patched fonts
 
+" tab navigation
+map <C-t><up> :tabr<cr>
+map <C-t><down> :tabl<cr>
+map <C-t><left> :tabp<cr>
+map <C-t><right> :tabn<cr>
+
 "
 " To bootstrap all this, first install vundle, then boot vim
 "   git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/Vundle.vim
