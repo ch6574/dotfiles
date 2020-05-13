@@ -1,4 +1,4 @@
-" CGH 2018-12-16
+" CGH 2020-05-12
 
 " Plugins
 set nocompatible
@@ -56,6 +56,10 @@ map <C-t><up> :tabr<cr>
 map <C-t><down> :tabl<cr>
 map <C-t><left> :tabp<cr>
 map <C-t><right> :tabn<cr>
+
+" whitespace
+set showbreak=↪\
+set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:·,extends:⟩,precedes:⟨
 
 "
 " To bootstrap all this, first install vundle, then boot vim
