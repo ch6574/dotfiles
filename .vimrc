@@ -14,6 +14,7 @@ Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'kien/ctrlp.vim'
 "Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
+Plugin 'vivien/vim-linux-coding-style'
 "Plugin 'valloric/YouCompleteMe'
 
 " Post-vundle
