@@ -19,9 +19,9 @@ export GPGKEY='165FDE7C'               # My current GPG key
 
 export WFICA_OPTS='-span a'            # GS Citrix session to span all screens
 
-export LC_TIME='en_DK.UTF-8'           # ISO 8601 dates
-export LC_MONETARY='en_US.UTF-8'       # USD
-export LC_PAPER='en_US.UTF-8'          # 'Letter' paper
-export LC_ADDRESS='en_US.UTF-8'        # US style
-export LC_TELEPHONE='en_US.UTF-8'      # US style
+#export LC_TIME='en_DK.UTF-8'           # ISO 8601 dates
+#export LC_MONETARY='en_US.UTF-8'       # USD
+#export LC_PAPER='en_US.UTF-8'          # 'Letter' paper
+#export LC_ADDRESS='en_US.UTF-8'        # US style
+#export LC_TELEPHONE='en_US.UTF-8'      # US style
 

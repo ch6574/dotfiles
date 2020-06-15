@@ -201,6 +201,24 @@ macgrep() {
     grep -i "${1}" ~/Documents/Computer/"MAC Addresses.txt"
 }
 
+# dotfiles in git
+# https://www.atlassian.com/git/tutorials/dotfiles
+dotfiles() {
+    git "--git-dir=${HOME}/.dotfiles" "--work-tree=${HOME}" "${@}"
+}
+dotfiles-install() {
+  (
+    set -ex
+    dotfiles init
+    dotfiles config --local status.showUntrackedFiles no
+    dotfiles remote add origin "git@github.com:ch6574/dotfiles.git"
+    dotfiles fetch
+    dotfiles checkout origin/master -ft
+#    dotfiles submodule init
+#    dotfiles submodule update
+  )
+}
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -227,12 +245,12 @@ fi
 # arg 1 - a variable name (not variable)
 # arg 2 - a directory to prefix it with
 #
-# _pathadd() {
-#     if [[ ! -d "${2}" ]] || [[ "${!1}" =~ (^|:)"${2}"(:|$) ]]; then
-#         return
-#     fi
-#     eval ${1}="${2}${!1:+:${!1}}"
-# }
+_pathadd() {
+    if [[ ! -d "${2}" ]] || [[ "${!1}" =~ (^|:)"${2}"(:|$) ]]; then
+        return
+    fi
+    eval ${1}="${2}${!1:+:${!1}}"
+}
 
 # export PERL_LOCAL_LIB_ROOT="${HOME}/perl5"
 # export PERL_MB_OPT="--install_base ${HOME}/perl5"
@@ -240,9 +258,9 @@ fi
 
 # _pathadd 'PERL5LIB' "${HOME}/perl5/lib/perl5"
 # _pathadd 'PERL5LIB' "${HOME}/perl5/lib/perl5/x86_64-linux-gnu-thread-multi"
-# _pathadd 'PATH' "${HOME}/perl5/bin"
+_pathadd 'PATH' "${HOME}/.local/bin"
 
-# unset _pathadd
+unset _pathadd
 
 export BLOCK_SIZE='si'                 # Display block sizes of 1000 (not 1024)
                                        # i.e. 'ls -l' will report 1,000,000 = 1M
