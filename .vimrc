@@ -1,4 +1,4 @@
-" CGH 2020-05-12
+" CGH 2020-11-16
 
 " Plugins
 set nocompatible
@@ -7,15 +7,12 @@ set rtp+=~/.vim/bundle/Vundle.vim " Vundle prelude
 call vundle#begin()               " ^
 Plugin 'VundleVim/Vundle.vim'     " ^
 
-Plugin 'vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'tpope/vim-fugitive'       " git
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-"Plugin 'kien/ctrlp.vim'
-"Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'vivien/vim-linux-coding-style'
-"Plugin 'valloric/YouCompleteMe'
 
 " Post-vundle
 call vundle#end()                 " Req'd for vundle
@@ -43,6 +40,7 @@ nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 nnoremap <silent> <F7> mzgg=G`z<CR>
 
 " Colours
+let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
 
