@@ -28,6 +28,7 @@ tmux_check ()
             if [[ $(tmux list-clients -t "$session" | wc -l) -eq 0 ]]; then
                 read -n1 -rp "Attach tmux session '$session'? " yn
                 printf "\\n"
+                yn=${yn:-y}
                 case "$yn" in
                     [Yy]*) exec tmux attach-session -t "$session" ;;
                 esac
@@ -36,6 +37,7 @@ tmux_check ()
             # Prompt to start the default session
             read -n1 -rp "Start tmux session '$session'? " yn
             printf "\\n"
+            yn=${yn:-y}
             case "$yn" in
                 [Yy]*) exec tmux new-session -s "$session" ;;
             esac
