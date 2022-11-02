@@ -1,3 +1,17 @@
 [user]
-	email = ch6574@gmail.com
 	name = Christopher Hill
+	email = ch6574@gmail.com
+[alias]
+	ignore = update-index --assume-unchanged
+	unigore = update-index --no-assume-unchanged
+	squash = rebase -i HEAD~2
+[credential]
+	helper = cache --timeout=3600
+[push]
+	default = simple
+[sendemail]
+	smtpEncryption = tls
+	smtpServer = smtp.gmail.com
+	smtpUser = ch6574@gmail.com
+    smtpServerPort = 587
+
