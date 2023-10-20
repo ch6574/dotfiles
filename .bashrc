@@ -200,7 +200,7 @@ refresh-env() {
 }
 
 macgrep() {
-    grep -i "${1}" ~/Documents/Computer/"MAC Addresses.txt"
+    grep -i "${1}" ~/syncthing-enc/"MAC Addresses.txt"
 }
 
 # dotfiles in git
