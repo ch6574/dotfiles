@@ -18,7 +18,7 @@ tmux_check ()
     if [[ -z "$TMUX" ]] && command -v tmux >/dev/null 2>&1; then
         # tmux exists, and we're not inside of it...
         sessions=$(tmux list-sessions 2>/dev/null)
-        if [[ ! -z "$sessions" ]]; then
+        if [[ -n "$sessions" ]]; then
             printf "Tmux active:\\n%s\\n" "$sessions"
         fi
         # Use a default session named after the hostname
@@ -131,6 +131,7 @@ if [[ "${color_prompt}" = yes ]]; then
 
     # Prompt
     PS1="\\[$green\\]╭─► \\[$yellow\\] \\w \$(__git_ps1 '(%s)')\\n\\[${green}\\]╰\\[${standout}\\]\\D{%R %Z}\\[${no_standout}\\] ${debian_chroot:+($debian_chroot)}\\u@\\h \\[${standout}\\]\${?##0}\\[${no_standout}\\] $ \\[${reset_video}\\]"
+    unset green yellow standout no_standout reset_video
 else
     # Monochrome prompt
     case "${TERM}" in
@@ -138,7 +139,7 @@ else
                    *) PS1="${debian_chroot:+($debian_chroot)}\\u@\\h \\w $ " ;;
    esac
 fi
-unset color_prompt force_color_prompt green yellow standout no_standout reset_video
+unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 # perhaps use tput tsl / tput fsl?
@@ -147,12 +148,8 @@ case "${TERM}" in
 esac
 
 # ls in color
-if [ -x /usr/bin/dircolors ]; then
-    if test -r ~/.dircolors; then
-        eval "$(dircolors -b ~/.dircolors)"
-    else
-        eval "$(dircolors -b)"
-    fi
+if [[ -x /usr/bin/dircolors ]]; then
+    eval "$(dircolors -b)"
     alias ls='ls --color=auto'
 
     alias grep='grep --color=auto'
@@ -225,44 +222,21 @@ dotfiles-install() {
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [[ -f /usr/share/bash-completion/bash_completion ]]; then
+  if [[ -r /usr/share/bash-completion/bash_completion ]]; then
     . /usr/share/bash-completion/bash_completion
+  elif [[ -r /etc/bash_completion ]]; then
+    . /etc/bash_completion
   fi
 fi
 
 # fzf
-if [[ -r /usr/share/bash-completion/completions/fzf ]]; then
-    . /usr/share/bash-completion/completions/fzf
-fi
 if [[ -r /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
     . /usr/share/doc/fzf/examples/key-bindings.bash
 fi
 
 #-------------------------------------------------------------------------------
-# PATH's, environment variables etc
+# environment variables etc
 #-------------------------------------------------------------------------------
-
-# Augment a PATH type variable. Ignore if arg is not a directory or is already included.
-#
-# arg 1 - a variable name (not variable)
-# arg 2 - a directory to prefix it with
-#
-_pathadd() {
-    if [[ ! -d "${2}" ]] || [[ "${!1}" =~ (^|:)"${2}"(:|$) ]]; then
-        return
-    fi
-    eval ${1}="${2}${!1:+:${!1}}"
-}
-
-# export PERL_LOCAL_LIB_ROOT="${HOME}/perl5"
-# export PERL_MB_OPT="--install_base ${HOME}/perl5"
-# export PERL_MM_OPT="INSTALL_BASE=${HOME}/perl5"
-
-# _pathadd 'PERL5LIB' "${HOME}/perl5/lib/perl5"
-# _pathadd 'PERL5LIB' "${HOME}/perl5/lib/perl5/x86_64-linux-gnu-thread-multi"
-_pathadd 'PATH' "${HOME}/.local/bin"
-
-unset _pathadd
 
 export BLOCK_SIZE='si'                 # Display block sizes of 1000 (not 1024)
                                        # i.e. 'ls -l' will report 1,000,000 = 1M

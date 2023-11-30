@@ -13,11 +13,14 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
 # environment variables availble after login
 export EDITOR='vim'
 export GPGKEY='165FDE7C'               # My current GPG key
-
-#export WFICA_OPTS='-span a'            # Citrix session to span all screens
 
 #export LC_TIME='en_DK.UTF-8'           # ISO 8601 dates
 #export LC_MONETARY='en_US.UTF-8'       # USD
