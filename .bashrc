@@ -197,7 +197,7 @@ refresh-env() {
 }
 
 macgrep() {
-    grep -i "${1}" ~/syncthing-enc/"MAC Addresses.txt"
+    egrep -i "##.*##|${1}" ~/syncthing-enc/"MAC Addresses.txt"
 }
 
 # dotfiles in git
@@ -212,9 +212,9 @@ dotfiles-install() {
     dotfiles config --local status.showUntrackedFiles no
     dotfiles remote add origin "git@github.com:ch6574/dotfiles.git"
     dotfiles fetch
-    dotfiles checkout origin/master -ft
-#    dotfiles submodule init
-#    dotfiles submodule update
+    dotfiles checkout origin/master --force --track
+    dotfiles update-index --assume-unchanged LICENSE README.md
+    rm ~/LICENSE ~/README.md
   )
 }
 
