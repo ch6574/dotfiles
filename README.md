@@ -1,22 +1,41 @@
 # Synopsis
-Dotfiles for home directory
+Dotfiles for home directory.
 
-# Example (manual)
+See https://www.atlassian.com/git/tutorials/dotfiles for details.
+
+# Installing
 ```bash
-git clone https://github.com/ch6574/dotfiles.git
-ln -s dotfiles/.bashrc ~/.bashrc
-# etc...
+dotfiles() {
+    git "--git-dir=${HOME}/.dotfiles" "--work-tree=${HOME}" "${@}"
+}
+
+dotfiles init
+dotfiles config --local status.showUntrackedFiles no
+dotfiles remote add origin "git@github.com:ch6574/dotfiles.git"
+dotfiles fetch
+dotfiles checkout origin/master -ft
 ```
 
-# Example (using GNU stow)
+# Using
+Substitute `dotfiles` for regular `git` commands:
 ```bash
-git clone https://github.com/ch6574/dotfiles.git
-# Adding
-stow --dir=dotfiles --target=~/ --ignore='LICENSE|README.md' .
+# Pulling updates
+dotfiles branch -r
+dotfiles fetch
+dotfiles diff origin/master
+dotfiles pull --rebase
 
-# Deleting
-stow --dir=dotfiles --target=~/ --delete .
+# Checking what local files are tracked
+dotfiles ls-files
 
+# Adding / pushing
+dotfiles add .foo
+dotfiles status
+dotfiles commit -am "added .foo"
+dotfiles push
+
+# Pulling specific file
+dotfiles checkout .foo
 ```
 
 # License
