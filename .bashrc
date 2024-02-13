@@ -174,6 +174,17 @@ esac
 # Aliases and functions
 #-------------------------------------------------------------------------------
 
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [[ -r /usr/share/bash-completion/bash_completion ]]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [[ -r /etc/bash_completion ]]; then
+    . /etc/bash_completion
+  fi
+fi
+
 # Alias definitions
 if [[ -r ~/.bash_aliases ]]; then
     . ~/.bash_aliases
@@ -202,9 +213,7 @@ macgrep() {
 
 # dotfiles in git
 # https://www.atlassian.com/git/tutorials/dotfiles
-dotfiles() {
-    git "--git-dir=${HOME}/.dotfiles" "--work-tree=${HOME}" "${@}"
-}
+alias dotfiles="git --git-dir='${HOME}/.dotfiles' --work-tree='${HOME}'"
 dotfiles-install() {
   (
     set -ex
@@ -217,17 +226,8 @@ dotfiles-install() {
     rm ~/LICENSE ~/README.md
   )
 }
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [[ -r /usr/share/bash-completion/bash_completion ]]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [[ -r /etc/bash_completion ]]; then
-    . /etc/bash_completion
-  fi
-fi
+_completion_loader git
+complete -o bashdefault -o default -o nospace -F __git_wrap__git_main dotfiles
 
 # fzf
 if [[ -r /usr/share/bash-completion/completions/fzf ]]; then
