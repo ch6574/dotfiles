@@ -5,9 +5,7 @@ See https://www.atlassian.com/git/tutorials/dotfiles for details.
 
 # Installing
 ```bash
-dotfiles() {
-    git "--git-dir=${HOME}/.dotfiles" "--work-tree=${HOME}" "${@}"
-}
+alias dotfiles="git '--git-dir=${HOME}/.dotfiles' '--work-tree=${HOME}'"
 
 dotfiles init
 dotfiles config --local status.showUntrackedFiles no
