@@ -29,7 +29,7 @@ export GPGKEY='165FDE7C'               # My current GPG key
 #export LC_TELEPHONE='en_US.UTF-8'      # US style
 
 case "$(hostname)" in
-    lord-gnome)
+    lord-gnome|gnome-jr)
         # Default PulseAudio devices
         pactl set-default-source alsa_input.usb-FIFINE_Microphones_FIFINE_K670_Microphone_REV1.0-00.analog-stereo
         pactl set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo-extra1
