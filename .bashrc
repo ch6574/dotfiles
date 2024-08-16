@@ -44,7 +44,10 @@ tmux_check ()
         fi
     fi
 }
-tmux_check
+
+if [[ ${TERM_PROGRAM} != "vscode" ]]; then
+    tmux_check
+fi
 
 #-------------------------------------------------------------------------------
 # Shell usability settings
