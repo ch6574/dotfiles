@@ -19,16 +19,19 @@ source $VIMRUNTIME/defaults.vim
 
 " Basic settings
 set autoindent                                      " Align the next line automatically
-set hlsearch                                        " Highligh search results
+set hlsearch                                        " Highlight search results
 set relativenumber                                  " Enable relative line numbers
 set tabstop=4 shiftwidth=4 expandtab                " Tabs to 4 spaces
-" Colors (bad spelling is bold white on red)
+" Colors
 set background=dark
 colorscheme solarized
-hi SpellBad cterm=bold ctermfg=015 ctermbg=009
+syntax on
 " Whitespace
 set showbreak=↪\
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:·,extends:⟩,precedes:⟨
+
+" Spellcheck
+hi SpellBad cterm=underline
 
 " vim-airline
 let g:airline#extensions#branch#enabled = 1         " Show git branch
@@ -38,7 +41,7 @@ let g:airline_powerline_fonts = 1                   " Need patched fonts (apt in
 
 " F2 pastemode, F3 spellcheck, F4 show hidden, F5 trim whitespace, F6 re-indent
 set pastetoggle=<F2>
-nnoremap <silent> <F3> :setlocal spell!<CR>
+nnoremap <silent> <F3> :set spell!<CR>
 nnoremap <silent> <F4> :set list!<CR>
 nnoremap <silent> <F5> :call TrimWhitespace()<CR>
 nnoremap <silent> <F6> gg=G<CR>
