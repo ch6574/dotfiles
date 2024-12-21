@@ -244,6 +244,7 @@ fi
 # environment variables etc
 #-------------------------------------------------------------------------------
 
+export BAT_THEME="Solarized (dark)"
 export BLOCK_SIZE='si'                 # Display block sizes of 1000 (not 1024)
                                        # i.e. 'ls -l' will report 1,000,000 = 1M
 export GCC_COLORS='true'               # Will have color highlights on gcc errors

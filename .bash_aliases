@@ -1,3 +1,4 @@
+alias bat='batcat'
 alias binds='bind -P | grep "can be found on"'
 alias psu='ps -fu ${USER}'
 
