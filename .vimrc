@@ -1,4 +1,4 @@
-" CGH 2024-12-19
+" CGH 2024-12-22
 set nocompatible
 
 " Plugins
@@ -15,18 +15,20 @@ call vundle#end()                                   " Required for vundle
 filetype plugin indent on                           " ^
 
 " Bring in defaults, undo any I don't like
+unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 set noshowcmd
 
 " Basic settings
 set autoindent                                      " Align the next line automatically
 set hlsearch                                        " Highlight search results
-set relativenumber                                  " Enable relative line numbers
-set tabstop=4 shiftwidth=4 expandtab                " Tabs to 4 spaces
+set number                                          " Line numbering
+set relativenumber                                  " Relative line numbers
+set tabstop=4 softtabstop=-1 shiftwidth=0 expandtab " Tabs to 4 spaces
+set wildmode=longest,list,full                      " Command tab completion
 " Colors
 set background=dark
 colorscheme solarized
-syntax on
 " Whitespace
 set showbreak=↪\
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:·,extends:⟩,precedes:⟨
@@ -40,12 +42,18 @@ let g:airline#extensions#tabline#enabled = 1        " Enable tabline of all buff
 let g:airline#extensions#tabline#fnamemod = ':t'    " Disable file paths in the tabline
 let g:airline_powerline_fonts = 1                   " Need patched fonts (apt install powerline)
 
-" ale fixers (linters are always on, fixers need explicitly activating)
+" ALE (linters are always on, fixers need explicitly activating)
+let g:ale_echo_msg_format = '%linter%: %code: %%s'
 let g:ale_fixers = {
 \   "python":   ["black"],
 \   "sh":       ["shfmt"],
 \   '*':        ['remove_trailing_lines', 'trim_whitespace'],
 \}
+let g:ale_sign_info = "ℹ️"
+let g:ale_sign_error = "🛑"
+let g:ale_sign_warning = "⚠️"
+let g:ale_sign_style_error = "🛑"
+let g:ale_sign_style_warning = "⚠️"
 
 " F2 pastemode, F3 spellcheck, F4 show hidden, F5 format/fix
 set pastetoggle=<F2>
