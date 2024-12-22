@@ -11,4 +11,3 @@ alias lla='ls -AlF' # all, long format, append indicator
 alias path='echo -e ${PATH//:/\\n}'
 
 alias yeardone='d=$(date +%j) && y=$(date +%j -d "Dec 31") && printf "Today is day ${d}/${y}, which is $(bc <<< "scale=1; ${d}*100/${y}")%% of $(date +%Y)!\n"'
-

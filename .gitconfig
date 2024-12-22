@@ -4,7 +4,7 @@
 [alias]
 	ignore = update-index --assume-unchanged
 	unigore = update-index --no-assume-unchanged
-	squash = rebase -i HEAD~2
+	squash = rebase -i HEAD~5
 [credential]
 	helper = cache --timeout=3600
 [push]
