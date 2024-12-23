@@ -45,6 +45,7 @@ let g:airline_powerline_fonts = 1                   " Need patched fonts (apt in
 " ALE (linters are always on, fixers need explicitly activating)
 let g:ale_echo_msg_format = '%linter%: %code: %%s'
 let g:ale_fixers = {
+\   "kotlin":   ['ktlint'],
 \   "python":   ["black"],
 \   "sh":       ["shfmt"],
 \   '*':        ['remove_trailing_lines', 'trim_whitespace'],
