@@ -22,6 +22,7 @@ set noshowcmd
 " Basic settings
 set autoindent                                      " Align the next line automatically
 set hlsearch                                        " Highlight search results
+set mouse=a                                         " Mouse integration
 set number                                          " Line numbering
 set relativenumber                                  " Relative line numbers
 set tabstop=4 softtabstop=-1 shiftwidth=0 expandtab " Tabs to 4 spaces
@@ -50,6 +51,7 @@ let g:ale_fixers = {
 \   "sh":       ["shfmt"],
 \   '*':        ['remove_trailing_lines', 'trim_whitespace'],
 \}
+let g:ale_python_flake8_options = '--max-line-length=88'    " Same as Black
 let g:ale_sign_info = "ℹ️"
 let g:ale_sign_error = "🛑"
 let g:ale_sign_warning = "⚠️"
