@@ -1,4 +1,4 @@
-" CGH 2024-12-22
+" CGH 2024-12-30
 set nocompatible
 
 " Plugins
@@ -43,20 +43,25 @@ let g:airline#extensions#tabline#enabled = 1        " Enable tabline of all buff
 let g:airline#extensions#tabline#fnamemod = ':t'    " Disable file paths in the tabline
 let g:airline_powerline_fonts = 1                   " Need patched fonts (apt install powerline)
 
-" ALE (linters are always on, fixers need explicitly activating)
+" ALE (add to default linters, plus explicitly turn on any fixers)
 let g:ale_echo_msg_format = '%linter%: %code: %%s'
+let g:ale_linters = {
+\   'json':     ['jq'],
+\}
 let g:ale_fixers = {
-\   "kotlin":   ['ktlint'],
-\   "python":   ["black"],
-\   "sh":       ["shfmt"],
+\   'json':     ['jq'],
+\   'kotlin':   ['ktlint'],
+\   'python':   ['black'],
+\   'sh':       ['shfmt'],
 \   '*':        ['remove_trailing_lines', 'trim_whitespace'],
 \}
+let g:ale_kotlin_ktlint_options = '--log-level error'
 let g:ale_python_flake8_options = '--max-line-length=88'    " Same as Black
-let g:ale_sign_info = "ℹ️"
-let g:ale_sign_error = "🛑"
-let g:ale_sign_warning = "⚠️"
-let g:ale_sign_style_error = "🛑"
-let g:ale_sign_style_warning = "⚠️"
+let g:ale_sign_info = 'ℹ️'
+let g:ale_sign_error = '🛑'
+let g:ale_sign_warning = '⚠️'
+let g:ale_sign_style_error = '🛑'
+let g:ale_sign_style_warning = '⚠️'
 
 " F2 pastemode, F3 spellcheck, F4 show hidden, F5 format/fix
 set pastetoggle=<F2>
