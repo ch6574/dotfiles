@@ -1,18 +1,14 @@
 " CGH 2024-12-30
-set nocompatible
 
 " Plugins
-filetype off                                        " Required for vundle
-set rtp+=~/.vim/bundle/Vundle.vim                   " Vundle prelude
-call vundle#begin()                                 " ^
-Plugin 'VundleVim/Vundle.vim'                       " ^
-Plugin 'altercation/vim-colors-solarized'           " Colors
-Plugin 'dense-analysis/ale'                         " Linters / Formatters (apt install black flake8 mypy shfmt)
-Plugin 'tpope/vim-fugitive'                         " Git
-Plugin 'vim-airline/vim-airline'                    " Status bar
-Plugin 'vim-airline/vim-airline-themes'             " Status bar
-call vundle#end()                                   " Required for vundle
-filetype plugin indent on                           " ^
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+call plug#begin()
+Plug 'altercation/vim-colors-solarized'             " Colors
+Plug 'dense-analysis/ale'                           " Linters / Formatters (apt install black flake8 mypy shfmt)
+Plug 'tpope/vim-fugitive'                           " Git
+Plug 'vim-airline/vim-airline'                      " Status bar
+Plug 'vim-airline/vim-airline-themes'               " Status bar
+call plug#end()
 
 " Bring in defaults, undo any I don't like
 unlet! skip_defaults_vim
@@ -23,13 +19,14 @@ set noshowcmd
 set autoindent                                      " Align the next line automatically
 set hlsearch                                        " Highlight search results
 set mouse=a                                         " Mouse integration
+set path+=**                                        " Subdirectories in ':find'
 set number                                          " Line numbering
 set relativenumber                                  " Relative line numbers
 set tabstop=4 softtabstop=-1 shiftwidth=0 expandtab " Tabs to 4 spaces
 set wildmode=longest,list,full                      " Command tab completion
 " Colors
 set background=dark
-colorscheme solarized
+silent! colorscheme solarized                       " Ignore if not installed
 " Whitespace
 set showbreak=↪\
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:·,extends:⟩,precedes:⟨
@@ -78,7 +75,3 @@ nnoremap <silent> <C-t><up>    :tabr<cr>
 nnoremap <silent> <C-t><down>  :tabl<cr>
 nnoremap <silent> <C-t><left>  :tabp<cr>
 nnoremap <silent> <C-t><right> :tabn<cr>
-
-" To bootstrap all this, first install vundle, then boot vim
-"   git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/Vundle.vim
-"   vim +BundleInstall +qall
