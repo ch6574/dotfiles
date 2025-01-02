@@ -8,6 +8,10 @@ Plug 'dense-analysis/ale'                           " Linters / Formatters (apt 
 Plug 'tpope/vim-fugitive'                           " Git
 Plug 'vim-airline/vim-airline'                      " Status bar
 Plug 'vim-airline/vim-airline-themes'               " Status bar
+" Local only plugins
+if filereadable(glob('~/.vimrc.localplug'))
+    source ~/.vimrc.localplug
+endif
 call plug#end()
 
 " Bring in defaults, undo any I don't like
@@ -75,3 +79,8 @@ nnoremap <silent> <C-t><up>    :tabr<cr>
 nnoremap <silent> <C-t><down>  :tabl<cr>
 nnoremap <silent> <C-t><left>  :tabp<cr>
 nnoremap <silent> <C-t><right> :tabn<cr>
+
+" Local only settings
+if filereadable(glob('~/.vimrc.local'))
+    source ~/.vimrc.local
+endif
