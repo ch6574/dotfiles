@@ -9,3 +9,4 @@
     default = simple
 [alias]
     squash = rebase -i HEAD~5
+    tree = log --graph --decorate --oneline --abbrev-commit
