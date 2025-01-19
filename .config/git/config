@@ -1,0 +1,14 @@
+[user]
+    name = Christopher Hill
+    email = ch6574@gmail.com
+[core]
+    pager = less -FRX
+[init]
+    defaultBranch = master
+[pull]
+    rebase = true
+[push]
+    default = simple
+[alias]
+    squash = rebase -i HEAD~5
+    tree = log --graph --decorate --oneline --abbrev-commit
