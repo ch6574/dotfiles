@@ -1,0 +1,6 @@
+# .perltidyrc configuration file
+-l=160 # line length
+-ce    # cuddle else statements
+-pt=2  # tighten parenthesis
+-bt=2  # tighten braces
+-sbt=2 # tighten square brackets
