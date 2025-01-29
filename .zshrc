@@ -30,7 +30,8 @@ NL=$'\n'
 PROMPT="%F{green}╭─► %~${NL}╰ %F{cyan}%D{%R %Z}%f %n\${vcs_info_msg_0_} %(?..%F{red})%# %f"
 
 # Environment
-export BAT_THEME="Solarized (dark)"        #
+export BAT_THEME_DARK="gruvbox-dark"       #
+export BAT_THEME_LIGHT="gruvbox-light"     #
 export BLOCK_SIZE="si"                     # GNU utilities use 1000, not 1024
 export EDITOR="vim"                        #
 export GCC_COLORS="true"                   # GCC errors in color

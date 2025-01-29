@@ -1,4 +1,4 @@
-" CGH 2025-01-19
+" CGH 2025-01-29
 
 "
 " Plugins
@@ -6,10 +6,12 @@
 "
 call plug#begin()
 Plug 'lifepillar/vim-solarized8'                    " Solarized 24bit
+Plug 'lifepillar/vim-gruvbox8'                      " Gruvbox 24bit
 Plug 'dense-analysis/ale'                           " Linters / Formatters (apt install black flake8 mypy shfmt)
 Plug 'tpope/vim-fugitive'                           " Git
 Plug 'vim-airline/vim-airline'                      " Status bar
 Plug 'vim-airline/vim-airline-themes'               " Status bar
+Plug 'vimpostor/vim-lumen'                          " Follow light/dark mode
 " Local only plugins
 if filereadable(glob('~/.vimrc.localplug'))
     source ~/.vimrc.localplug
@@ -27,6 +29,7 @@ set noshowcmd
 " Basic settings
 "
 set autoindent                                      " Align the next line automatically
+set cursorline cursorlineopt=number                 " Highlight current line (only gutter)
 set foldmethod=syntax                               " Folding style
 set hlsearch                                        " Highlight search results
 set ignorecase smartcase                            " Searching case insensitive, unless caps involved
@@ -45,7 +48,8 @@ set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:·,extends:⟩,precedes:⟨
 set background=dark
 if (&term =~ '256color' || &term =~ 'ghostty')
     set termguicolors
-    silent! colorscheme solarized8                  " Ignore if not installed
+    " silent! colorscheme solarized8                  " Ignore if not installed
+    silent! colorscheme gruvbox8                     " Ignore if not installed
 else
     colorscheme sorbet
 endif
