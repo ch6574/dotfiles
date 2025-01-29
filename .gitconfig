@@ -1,14 +1,16 @@
-[user]
-    name = Christopher Hill
-    email = ch6574@gmail.com
+[alias]
+    squash = rebase -i HEAD~5
+    tree = log --graph --decorate --oneline --abbrev-commit
 [core]
-    pager = less -FRX
+    pager = less -FR
+[diff]
+    wsErrorHighlight = all
 [init]
     defaultBranch = master
 [pull]
     rebase = true
 [push]
     default = simple
-[alias]
-    squash = rebase -i HEAD~5
-    tree = log --graph --decorate --oneline --abbrev-commit
+[user]
+    name = Christopher Hill
+    email = ch6574@gmail.com
