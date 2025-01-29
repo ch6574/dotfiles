@@ -1,13 +1,16 @@
-" CGH 2025-01-19
+" CGH 2025-01-29
 
+"
 " Plugins
 " curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"
 call plug#begin()
-Plug 'lifepillar/vim-solarized8'                    " Solarized 24bit
+Plug 'lifepillar/vim-gruvbox8'                      " Gruvbox 24bit
 Plug 'dense-analysis/ale'                           " Linters / Formatters (apt install black flake8 mypy shfmt)
 Plug 'tpope/vim-fugitive'                           " Git
 Plug 'vim-airline/vim-airline'                      " Status bar
 Plug 'vim-airline/vim-airline-themes'               " Status bar
+Plug 'vimpostor/vim-lumen'                          " Follow light/dark mode
 " Local only plugins
 if filereadable(glob('~/.vimrc.localplug'))
     source ~/.vimrc.localplug
@@ -31,12 +34,13 @@ set wildmode=longest,list,full                      " Command tab completion
 " Whitespace
 set showbreak=↪\
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:·,extends:⟩,precedes:⟨
+
 " Colors
-set background=dark
 if (&term =~ '256color' || &term =~ 'ghostty')
     set termguicolors
-    silent! colorscheme solarized8                  " Ignore if not installed
+    silent! colorscheme gruvbox8                    " Ignore if not installed
 else
+    set background=dark
     colorscheme sorbet
 endif
 

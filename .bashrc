@@ -70,7 +70,9 @@ __exitstatus() { [[ $? == 0 ]] && printf '$' || printf '%s$%s' "${COLOR_ERR}" "$
 PS1="${COLOR_DIR}╭─► \\w\\n╰ ${COLOR_TIM}\\D{%R %Z} ${COLOR_DEF}\\u${COLOR_GIT}\$(__git_ps1 ' (%s)')${COLOR_DEF} \$(__exitstatus) "
 
 # Environment
-export BAT_THEME="Solarized (dark)"        #
+export BAT_THEME="gruvbox-dark"            # Until ubuntu gets newer batcat
+export BAT_THEME_DARK="gruvbox-dark"       #
+export BAT_THEME_LIGHT="gruvbox-light"     #
 export BLOCK_SIZE="si"                     # GNU utilities use 1000, not 1024
 export EDITOR="vim"                        #
 export GCC_COLORS="true"                   # GCC errors in color
