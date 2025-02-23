@@ -81,6 +81,7 @@ let g:ale_fixers = {
 \   'java':     ['google_java_format'],
 \   'json':     ['jq'],
 \   'kotlin':   ['ktlint'],
+\   'perl':     ['perltidy'],
 \   'python':   ['black'],
 \   'sh':       ['shfmt'],
 \   '*':        ['remove_trailing_lines', 'trim_whitespace'],
