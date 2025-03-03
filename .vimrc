@@ -1,4 +1,4 @@
-" CGH 2025-01-29
+" CGH 2025-03-03
 
 "
 " Plugins
@@ -12,6 +12,7 @@ Plug 'tpope/vim-fugitive'                           " Git
 Plug 'vim-airline/vim-airline'                      " Status bar
 Plug 'vim-airline/vim-airline-themes'               " Status bar
 Plug 'vimpostor/vim-lumen'                          " Follow light/dark mode
+Plug 'vimwiki/vimwiki'                              " Wiki
 " Local only plugins
 if filereadable(glob('~/.vimrc.localplug'))
     source ~/.vimrc.localplug
@@ -59,7 +60,7 @@ hi SpellBad cterm=underline
 augroup localspell
     autocmd!
     " Always spellcheck these filetypes
-    autocmd Filetype gitcommit,markdown setlocal spell
+    autocmd Filetype gitcommit,markdown,vimwiki setlocal spell
 augroup END
 
 "
