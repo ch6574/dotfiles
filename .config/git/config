@@ -1,14 +1,33 @@
-[user]
-    name = Christopher Hill
-    email = ch6574@gmail.com
-[core]
-    pager = less -FRX
-[init]
-    defaultBranch = master
-[pull]
-    rebase = true
-[push]
-    default = simple
 [alias]
     squash = rebase -i HEAD~5
     tree = log --graph --decorate --oneline --abbrev-commit
+[branch]
+    sort = -committerdate       # sort by commit date
+[column]
+    ui = auto                   # fits more on screen
+[core]
+    pager = less -FR
+[diff]
+    algorithm = histogram       # better diffs
+    colorMoved = plain
+    mnemonicPrefix = true       # i=index, w=working
+    renames = true
+    wsErrorHighlight = all      # whitespace
+[init]
+    defaultBranch = master
+[pull]
+    rebase = true               # rebase on pulls
+[push]
+    default = simple
+[rebase]
+    autoSquash = true           # fixups
+    autoStash = true            # stash & pop
+    updateRefs = true
+[rerere]
+    enabled = true              # reuse recorded resolutions
+    autoupdate = true
+[tag]
+    sort = version:refname      # better sorting
+[user]
+    name = Christopher Hill
+    email = ch6574@gmail.com
