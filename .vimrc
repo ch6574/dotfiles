@@ -11,6 +11,7 @@ Plug 'tpope/vim-fugitive'                           " Git
 Plug 'vim-airline/vim-airline'                      " Status bar
 Plug 'vim-airline/vim-airline-themes'               " Status bar
 Plug 'vimpostor/vim-lumen'                          " Background auto light/dark
+Plug 'vimwiki/vimwiki'                              " Wiki
 " Local only plugins
 if filereadable(glob('~/.vimrc.localplug'))
     source ~/.vimrc.localplug
@@ -57,7 +58,7 @@ hi SpellBad cterm=underline
 augroup localspell
     autocmd!
     " Always spellcheck these filetypes
-    autocmd Filetype gitcommit,markdown setlocal spell
+    autocmd Filetype gitcommit,markdown,vimwiki setlocal spell
 augroup END
 
 "
@@ -87,6 +88,9 @@ let g:ale_fixers = {
 \}
 let g:ale_kotlin_ktlint_options = '--log-level error'       " Eliminate ktlint noise
 let g:ale_python_flake8_options = '--max-line-length=88'    " Same as Black
+
+" VimWiki
+let g:vimwiki_global_ext=0
 
 "
 " Key mapping
