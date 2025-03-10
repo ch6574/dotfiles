@@ -16,6 +16,9 @@ fi
 # fzf (apt install fzf)
 if [[ -r /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
 	source /usr/share/doc/fzf/examples/key-bindings.bash
+	export FZF_DEFAULT_OPTS="--border" # "--style full" when available
+#	type rg     &> /dev/null && export FZF_DEFAULT_COMMAND="rg --files"        || echo "Missing rg on this host!"
+#	type batcat &> /dev/null && export FZF_CTRL_T_OPTS="--preview 'batcat {}'" || echo "Missing bat on this host!"
 fi
 
 #
