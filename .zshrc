@@ -63,6 +63,16 @@ if [[ -r "${HOME}/.zshrc.local" ]]; then
 fi
 
 #
+# Optional integrations
+#
+type fzf &> /dev/null && {
+	eval "$(fzf --zsh)"
+	export FZF_DEFAULT_OPTS="--style full"
+	type rg  &> /dev/null && export FZF_DEFAULT_COMMAND="rg --files"     || echo "Missing rg on this host!"
+	type bat &> /dev/null && export FZF_CTRL_T_OPTS="--preview 'bat {}'" || echo "Missing bat on this host!"
+} || echo "Missing fzf on this host!"
+
+#
 # Done!
 #
 uptime
