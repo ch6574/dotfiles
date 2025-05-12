@@ -99,7 +99,7 @@ let g:vimwiki_global_ext=0
 " Quality of life additions
 " \<CR> = turn off search highlights, \d = iso8601 date
 nnoremap <leader><CR> :noh<CR>
-nnoremap <leader>d "=strftine('%Y-%m-%d')<CR>P
+nnoremap <leader>d "=strftime('%Y-%m-%d')<CR>P
 
 " F2 pastemode, F3 spellcheck, F4 show hidden, F5 format/fix
 set pastetoggle=<F2>
