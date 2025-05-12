@@ -1,4 +1,4 @@
-" CGH 2025-03-08
+" CGH 2025-05-12
 
 "
 " Plugins
@@ -95,6 +95,12 @@ let g:vimwiki_global_ext=0
 "
 " Key mapping
 "
+
+" Quality of life additions
+" \<CR> = turn off search highlights, \d = iso8601 date
+nnoremap <leader><CR> :noh<CR>
+nnoremap <leader>d "=strftime('%Y-%m-%d')<CR>P
+
 " F2 pastemode, F3 spellcheck, F4 show hidden, F5 format/fix
 set pastetoggle=<F2>
 nnoremap <silent> <F3> :setlocal spell!<CR>
