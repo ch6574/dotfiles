@@ -5,6 +5,31 @@ case "${-}" in
 esac
 
 #
+# Functions
+#
+
+# dotfiles in git
+# https://www.atlassian.com/git/tutorials/dotfiles
+alias dotfiles='git --git-dir="${HOME}/.dotfiles" --work-tree="${HOME}"'
+dotfiles-install() {
+	(
+		set -ex
+		dotfiles init
+		dotfiles config --local status.showUntrackedFiles no
+		dotfiles remote add origin "git@github.com:ch6574/dotfiles.git"
+		dotfiles fetch
+		dotfiles checkout origin/master --force --track
+		dotfiles update-index --assume-unchanged LICENSE README.md
+		rm ~/LICENSE ~/README.md
+	)
+}
+
+print_banner() {
+	print -- ${(l:COLUMNS::-:)}
+	print $1
+}
+
+#
 # Shell usability
 #
 HISTCONTROL="ignoreboth:erasedups"               # Ignore leading space entries, also duplicates
@@ -52,15 +77,25 @@ alias path='echo -e ${PATH//:/\\n}'
 alias psu='ps -fu ${USER}'
 
 #
-# Local only settings
+# Optional local installs
 #
-if [[ -r "${HOME}/bin" ]]; then
-	export PATH="${HOME}/bin:${PATH}"
-fi
+__LATEST_TOOLS="true"
+__LATEST_TOOLS="${__LATEST_TOOLS} && print_banner '...updating Applications' && open -a Latest"
 
-if [[ -r "${HOME}/.zshrc.local" ]]; then
-	source "${HOME}/.zshrc.local"
-fi
+# Usually brew is on the path via /etc/paths.d/homebrew
+type brew &> /dev/null && {
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+	export HOMEBREW_NO_ENV_HINTS=1
+	__LATEST_TOOLS="${__LATEST_TOOLS} && print_banner '...updating Brew' && brew update && brew upgrade && brew cleanup"
+} || echo "Missing brew on this host!"
+
+type mise &> /dev/null && {
+	eval "$(mise activate zsh)"
+	autoload -Uz compinit && compinit
+	__LATEST_TOOLS="${__LATEST_TOOLS} && print_banner '...updating Mise' && mise upgrade && mise prune"
+} || echo "Missing mise on this host!"
+
+alias latest-tools="${__LATEST_TOOLS}"
 
 #
 # Optional integrations
@@ -71,6 +106,17 @@ type fzf &> /dev/null && {
 	type rg  &> /dev/null && export FZF_DEFAULT_COMMAND="rg --files"     || echo "Missing rg on this host!"
 	type bat &> /dev/null && export FZF_CTRL_T_OPTS="--preview 'bat {}'" || echo "Missing bat on this host!"
 } || echo "Missing fzf on this host!"
+
+#
+# Local only settings
+#
+if [[ -r "${HOME}/bin" ]]; then
+	export PATH="${HOME}/bin:${PATH}"
+fi
+
+if [[ -r "${HOME}/.zshrc.local" ]]; then
+	source "${HOME}/.zshrc.local"
+fi
 
 #
 # Done!
