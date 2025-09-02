@@ -81,13 +81,12 @@ let g:ale_fixers = {
 \   'json':     ['jq'],
 \   'kotlin':   ['ktlint'],
 \   'perl':     ['perltidy'],
-\   'python':   ['black'],
+\   'python':   ['ruff', 'ruff_format'],
 \   'sh':       ['shfmt'],
 \   'xml':      ['xmllint'],
 \   '*':        ['remove_trailing_lines', 'trim_whitespace'],
 \}
 let g:ale_kotlin_ktlint_options = '--log-level error'       " Eliminate ktlint noise
-let g:ale_python_flake8_options = '--max-line-length=88'    " Same as Black
 
 " VimWiki
 let g:vimwiki_global_ext=0
