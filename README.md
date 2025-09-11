@@ -13,8 +13,9 @@ Personal dotfiles for home directory. Use `dotfiles-install` function in .bashrc
 - Keyboard -> repeat to max, delay shortest, caps as ctrl
 
 Need to logout to trigger these:
-- `default write -globalDomain NSStatusItemSpacing -int 8`
-- `default write -globalDomain NSWindowShouldDragOnGesture -bool true`
+- `defaults write -globalDomain NSStatusItemSpacing -int 8`
+- `defaults write -globalDomain NSStatusItemSelectionPadding -int 8`
+- `defaults write -globalDomain NSWindowShouldDragOnGesture -bool true`
 
 Dock spacer
 - `defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="small-spacer-tile";}' && killall Dock`
