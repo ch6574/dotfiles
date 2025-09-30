@@ -1,4 +1,4 @@
-" CGH 2025-05-12
+" CGH 2025-09-30
 
 "
 " Plugins
@@ -17,6 +17,9 @@ if filereadable(glob('~/.vimrc.localplug'))
     source ~/.vimrc.localplug
 endif
 call plug#end()
+
+" Vim builtin packages
+packadd! comment
 
 "
 " Bring in defaults, then undo any I don't like
