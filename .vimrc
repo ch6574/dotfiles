@@ -1,4 +1,4 @@
-" CGH 2025-09-30
+" CGH 2025-11-13
 
 "
 " Plugins
@@ -41,6 +41,11 @@ set mouse=a                                         " Mouse integration
 set path+=**                                        " Subdirectories in ':find'
 set number relativenumber                           " Relative line numbering
 set tabstop=4 softtabstop=-1 shiftwidth=0 expandtab " Tabs to 4 spaces
+set undofile                                        " Persistent undo
+set undodir=$MYVIMDIR/undodir/
+if !isdirectory(&undodir)
+    call mkdir(&undodir, 'p', 0700)
+endif
 set wildmode=longest,list,full                      " Command tab completion
 
 " Whitespace
