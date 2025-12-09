@@ -91,7 +91,6 @@ type brew &> /dev/null && {
 
 type mise &> /dev/null && {
 	eval "$(mise activate zsh)"
-	autoload -Uz compinit && compinit
 	__LATEST_TOOLS="${__LATEST_TOOLS} && print_banner '...updating Mise' && mise upgrade && mise prune"
 } || echo "Missing mise on this host!"
 
@@ -121,4 +120,5 @@ fi
 #
 # Done!
 #
+autoload -Uz compinit && compinit
 uptime
