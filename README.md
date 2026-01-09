@@ -5,12 +5,12 @@ Personal dotfiles for home directory. Use `dotfiles-install` function in .bashrc
 - General -> Date & Time -> 24hr, using location
 - General -> Language -> ISO date format
 - Appearance -> Auto
-- Control Center -> Show/Dont, Clock show seconds, Autohide menu never
 - Desktop & Dock -> Size, double click to fill, show indicators, tiled margins off, drag to edges on, mission control separate spaces on, group by app on, hot corners
-- Wallpaper
-- Notifications -> silence the noisy ones
-- Lock screen -> 24hr clock, require password 5sec
-- Keyboard -> repeat to max, delay shortest, caps as ctrl
+- Menu Bar -> Show/Dont, Clock, Autohide menu never
+- Wallpaper -> Clock on lock screen
+- Notifications -> Silence noisy ones
+- Lock screen -> Require password 5sec
+- Keyboard -> Repeat to max, delay shortest, CAPS as CTRL
 
 Need to logout to trigger these:
 - `defaults write -globalDomain NSStatusItemSpacing -int 8`
