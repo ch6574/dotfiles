@@ -1,4 +1,4 @@
-" CGH 2025-11-13
+" CGH 2026-01-12
 
 "
 " Plugins
@@ -36,6 +36,7 @@ set cursorline cursorlineopt=number                 " Highlight current line (on
 set foldmethod=syntax                               " Folding style
 set hlsearch                                        " Highlight search results
 set ignorecase smartcase                            " Searching case insensitive, unless caps involved
+set keymodel=startsel,stopsel                       " Shift + cursor for Visual mode
 set nofoldenable                                    " Folding off by default
 set mouse=a                                         " Mouse integration
 set path+=**                                        " Subdirectories in ':find'
