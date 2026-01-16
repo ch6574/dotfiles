@@ -32,13 +32,13 @@ print_banner() {
 #
 # Shell usability
 #
-HISTCONTROL="ignoreboth:erasedups"               # Ignore leading space entries, also duplicates
-HISTSIZE="10000"                                 # In memory
-HISTFILESIZE="20000"                             # On disk
-HISTIGNORE="&:l:la:ll:lla:ls:fg:bg:history:exit" #
-setopt appendhistory                             # Append history, don't overwrite
-setopt incappendhistory                          # Flush history to file immediately
-set -o noclobber                                 # Don't overwrite existing files
+HISTSIZE="10000"                                # In memory
+HISTFILESIZE="20000"                            # On disk
+HISTORY_IGNORE="(l|la|ll|lla|ls|fg|bg|history|exit)*"
+setopt appendhistory                            # Append history, don't overwrite
+setopt histignorealldups histignorespace        # Ignore leading space entries, also duplicates
+setopt incappendhistory                         # Flush history to file immediately
+set -o noclobber                                # Don't overwrite existing files
 
 # Keys
 bindkey '\e[H' beginning-of-line               # Home
@@ -84,7 +84,7 @@ __LATEST_TOOLS="${__LATEST_TOOLS} && print_banner '...updating Applications' && 
 
 # Usually brew is on the path via /etc/paths.d/homebrew
 type brew &> /dev/null && {
-	eval "$(/opt/homebrew/bin/brew shellenv)"
+	eval "$(brew shellenv)"
 	export HOMEBREW_NO_ENV_HINTS=1
 	__LATEST_TOOLS="${__LATEST_TOOLS} && print_banner '...updating Brew' && brew update && brew upgrade && brew cleanup"
 } || echo "Missing brew on this host!"
