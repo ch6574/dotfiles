@@ -19,3 +19,21 @@ Need to logout to trigger these:
 
 Dock spacer
 - `defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="small-spacer-tile";}' && killall Dock`
+
+## DefaultKeyBinding.dict
+
+```
+{
+    /* For the extra keys on the Keychron not native to the Mac... */
+
+    /* Home & End keys */
+    "\UF729"   = "moveToBeginningOfLine:";                          /* Home                 */
+    "\UF72B"   = "moveToEndOfLine:";                                /* End                  */
+    "^\UF729"  = "moveToBeginningOfDocument:";                      /* Ctrl + Home          */
+    "^\UF72B"  = "moveToEndOfDocument:";                            /* Ctrl + End           */
+    "$\UF729"  = "moveToBeginningOfLineAndModifySelection:";        /* Shift + Home         */
+    "$\UF72B"  = "moveToEndOfLineAndModifySelection:";              /* Shift + End          */
+    "^$\UF729" = "moveToBeginningOfDocumentAndModifySelection:";    /* Ctrl + Shift + Home  */
+    "^$\UF72B" = "moveToEndOfDocumentAndModifySelection:";          /* Ctrl + Shift + End   */
+}
+```
