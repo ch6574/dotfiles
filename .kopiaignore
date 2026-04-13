@@ -1,0 +1,16 @@
+# Global ignores
+.*cache*/
+.venv/
+__pycache__/
+
+# Root only igores
+/.Trash/
+/.gradle/
+/.local/share/mise/
+/.local/state/mise/
+/.m2/
+/.npm/
+/.rustup/
+/ISO/
+/Library/
+

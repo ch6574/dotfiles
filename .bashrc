@@ -21,13 +21,6 @@ if [[ -r /usr/share/doc/fzf/examples/key-bindings.bash ]]; then
 #	type batcat &> /dev/null && export FZF_CTRL_T_OPTS="--preview 'batcat {}'" || echo "Missing bat on this host!"
 fi
 
-#
-# Functions
-#
-macgrep() {
-	grep -Ei "##.*##|${1}" "${HOME}/syncthing-enc/MAC Addresses.txt"
-}
-
 # dotfiles in git
 # https://www.atlassian.com/git/tutorials/dotfiles
 alias dotfiles='git --git-dir="${HOME}/.dotfiles" --work-tree="${HOME}"'
