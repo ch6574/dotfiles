@@ -30,10 +30,29 @@ print_banner() {
 }
 
 #
+# tmux check
+#
+type tmux &> /dev/null && [[ -z "${TMUX}" ]] && {
+	sessions=$(tmux list-sessions -F "#S" 2> /dev/null)
+	if [[ -n "${sessions}" ]]; then
+		echo "Active detached tmux sessions found"
+		echo -n "...attach? [Y/n]: "
+		read -rk1 response
+		echo
+
+		if [[ "${response:-Y}" =~ ^([Yy]|$'\n')$ ]]; then
+			exec tmux attach-session
+		fi
+	fi
+}
+
+#
 # Shell usability
 #
+SAVEHIST="10000"
 HISTSIZE="10000"                                # In memory
-HISTFILESIZE="20000"                            # On disk
+HISTFILE="${HOME}/.zsh_history"                 # On disk
+HISTFILESIZE="20000"                            #
 HISTORY_IGNORE="(l|la|ll|lla|ls|fg|bg|history|exit)*"
 setopt appendhistory                            # Append history, don't overwrite
 setopt histignorealldups histignorespace        # Ignore leading space entries, also duplicates
@@ -41,6 +60,7 @@ setopt incappendhistory                         # Flush history to file immediat
 set -o noclobber                                # Don't overwrite existing files
 
 # Keys
+bindkey -e
 bindkey '\e[H' beginning-of-line               # Home
 bindkey '\e[F' end-of-line                     # End
 bindkey '\e[5~' beginning-of-buffer-or-history # Page Up
@@ -80,7 +100,12 @@ alias psu='ps -fu ${USER}'
 # Optional local installs
 #
 __LATEST_TOOLS="true"
-__LATEST_TOOLS="${__LATEST_TOOLS} && print_banner '...updating Applications' && open -a Latest"
+
+case $(uname) in
+Darwin)
+	__LATEST_TOOLS="${__LATEST_TOOLS} && print_banner '...updating Applications' && open -a Latest"
+	;;
+esac
 
 # Usually brew is on the path via /etc/paths.d/homebrew
 type brew &> /dev/null && {
