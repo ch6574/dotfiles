@@ -70,6 +70,9 @@ augroup localspell
     autocmd Filetype gitcommit,markdown,vimwiki setlocal spell
 augroup END
 
+" Use real tabs for shell scripts
+autocmd FileType sh,zsh setlocal noexpandtab
+
 "
 " Plugins
 "
