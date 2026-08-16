@@ -1,3 +1,0 @@
-startup_message off
-# Fix scrollback
-termcapinfo xterm* ti@:te=@

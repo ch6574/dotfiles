@@ -13,6 +13,8 @@
     mnemonicPrefix = true       # i=index, w=working
     renames = true
     wsErrorHighlight = all      # whitespace
+[fetch]
+    prune = true                # for deleted remote branches
 [init]
     defaultBranch = master
 [pull]

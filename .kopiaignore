@@ -3,7 +3,7 @@
 .venv/
 __pycache__/
 
-# Root only igores
+# Root only ignores
 /.Trash/
 /.gradle/
 /.local/share/mise/

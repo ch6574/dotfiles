@@ -20,7 +20,7 @@ dotfiles-install() {
 		dotfiles fetch
 		dotfiles checkout origin/master --force --track
 		dotfiles update-index --assume-unchanged LICENSE README.md
-		rm ~/LICENSE ~/README.md
+		rm -f ~/LICENSE ~/README.md
 	)
 }
 
@@ -49,22 +49,23 @@ type tmux &> /dev/null && [[ -z "${TMUX}" ]] && {
 #
 # Shell usability
 #
-SAVEHIST="10000"
-HISTSIZE="10000"                                # In memory
-HISTFILE="${HOME}/.zsh_history"                 # On disk
-HISTFILESIZE="20000"                            #
+SAVEHIST="10000"								# On disk
+HISTSIZE="10000"								# In memory
+HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 HISTORY_IGNORE="(l|la|ll|lla|ls|fg|bg|history|exit)*"
-setopt appendhistory                            # Append history, don't overwrite
-setopt histignorealldups histignorespace        # Ignore leading space entries, also duplicates
-setopt incappendhistory                         # Flush history to file immediately
-set -o noclobber                                # Don't overwrite existing files
+setopt appendhistory							# Append history, don't overwrite
+setopt extendedhistory							# Timestamps and duration
+setopt histignorealldups histignorespace		# Ignore leading space entries, also duplicates
+setopt histfindnodups							# Don't show dupes when searching history
+setopt incappendhistorytime						# Flush history to file immediately
+set -o noclobber								# Don't overwrite existing files
 
 # Keys
 bindkey -e
-bindkey '\e[H' beginning-of-line               # Home
-bindkey '\e[F' end-of-line                     # End
-bindkey '\e[5~' beginning-of-buffer-or-history # Page Up
-bindkey '\e[6~' end-of-buffer-or-history       # Page Down
+bindkey '\e[H' beginning-of-line				# Home
+bindkey '\e[F' end-of-line						# End
+bindkey '\e[5~' beginning-of-buffer-or-history	# Page Up
+bindkey '\e[6~' end-of-buffer-or-history		# Page Down
 
 # Prompt
 setopt promptsubst
@@ -75,14 +76,14 @@ NL=$'\n'
 PROMPT="%F{green}╭─► %~${NL}╰ %F{cyan}%D{%R %Z}%f %n\${vcs_info_msg_0_} %(?..%F{red})%# %f"
 
 # Environment
-export BAT_THEME_DARK="gruvbox-dark"       #
-export BAT_THEME_LIGHT="gruvbox-light"     #
-export BLOCK_SIZE="si"                     # GNU utilities use 1000, not 1024
-export EDITOR="vim"                        #
-export GCC_COLORS="true"                   # GCC errors in color
-export LESS="-R --use-color -Dd+r\$Du+b\$" # Less color support (red bold, blue underlined)
-export MANROFFOPT="-P -c"                  # Man pages in color
-export VISUAL="${EDITOR}"                  #
+export BAT_THEME_DARK="gruvbox-dark"		#
+export BAT_THEME_LIGHT="gruvbox-light"		#
+export BLOCK_SIZE="si"						# GNU utilities use 1000, not 1024
+export EDITOR="vim"							#
+export GCC_COLORS="true"					# GCC errors in color
+export LESS="-R --use-color -Dd+r\$Du+b\$"	# Less color support (red bold, blue underlined)
+export MANROFFOPT="-P -c"					# Man pages in color
+export VISUAL="${EDITOR}"					#
 
 # Aliases
 alias diff='diff --color=auto'
@@ -137,6 +138,7 @@ type fzf &> /dev/null && {
 if [[ -r "${HOME}/bin" ]]; then
 	export PATH="${HOME}/bin:${PATH}"
 fi
+typeset -U path
 
 if [[ -r "${HOME}/.zshrc.local" ]]; then
 	source "${HOME}/.zshrc.local"
